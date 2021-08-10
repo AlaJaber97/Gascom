@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "416815828748",
+    "firebase_url": "https://gas-project-5d680-default-rtdb.firebaseio.com",
+    "project_id": "gas-project-5d680",
+    "storage_bucket": "gas-project-5d680.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416815828748:android:54679c52b81cefd9520329",
+        "android_client_info": {
+          "package_name": "com.smartspace.gascom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416815828748-iare8k6jnchsb9ppb7ah12ft87ai61tk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQvso94nRFcyvjIYajjbnQy1I_ZhibwC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416815828748-iare8k6jnchsb9ppb7ah12ft87ai61tk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
