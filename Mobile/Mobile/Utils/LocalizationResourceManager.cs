@@ -6,24 +6,20 @@ using System.Resources;
 using System.Text;
 using System.Threading;
 using Xamarin.Forms;
-using Mobile.Languages;
 
 namespace Mobile.Utils
 {
     public class LocalizationResourceManager : INotifyPropertyChanged
     {
-        public static LocalizationResourceManager Instance { get; private set; }
+        private static LocalizationResourceManager _Instance { get; set; }
+        public static LocalizationResourceManager Instance => _Instance ??= new LocalizationResourceManager();
         public FlowDirection FlowDirection { get; set; }
         private LocalizationResourceManager() { }
-        public static void Initialization()
-        {
-            Instance ??= new LocalizationResourceManager();
-        }
 
         public void SetCulture(CultureInfo culture)
         {
             Thread.CurrentThread.CurrentUICulture = culture;
-            Resource.Culture = culture;
+            Mobile.Languages.Resource.Culture = culture;
             FlowDirection = culture.TextInfo.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             //how rememebr culture selected after close app
 
@@ -33,7 +29,8 @@ namespace Mobile.Utils
         public string this[string key] => GetValue(key);
         public string GetValue(string key)
         {
-            return Resource.ResourceManager.GetString(key, Resource.Culture);
+            var value = Mobile.Languages.Resource.ResourceManager.GetString(key, Mobile.Languages.Resource.Culture);
+            return value ?? key;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

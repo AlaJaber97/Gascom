@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Matrial="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             xmlns:Localizer="clr-namespace:Mobile.Utils"
+             xmlns:ViewModels="clr-namespace:Mobile.ViewModels"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="Mobile.Views.LoginPage">
+    <ContentPage.BindingContext>
+        <ViewModels:LoginViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout Margin="0" Padding="0" Spacing="0">
+        <StackLayout Orientation="Horizontal" Margin="0,0,0,-60" Padding="20" Spacing="10" VerticalOptions="FillAndExpand">
+            <Image Source="splash" HeightRequest="120" VerticalOptions="Start"/>
+            <StackLayout Orientation="Vertical" Margin="0" Padding="0" Spacing="10" VerticalOptions="CenterAndExpand">
+                <Label Text="{Localizer:Translate Welcome Back}" TextColor="White" 
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       FontSize="Large" FontAttributes="Bold"/>
+                <Label Text="{Localizer:Translate Gasco Application}" TextColor="White" 
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       FontSize="Medium" FontAttributes="Bold"/>
+            </StackLayout>
+            <StackLayout.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,0.9">
+                    <GradientStop Color="#456BFC" Offset="0.1"/>
+                    <GradientStop Color="#96A7FC" Offset="1.0"/>
+                </LinearGradientBrush>
+            </StackLayout.Background>
+        </StackLayout>
+        <Frame Margin="0,0,0,-60" Padding="20,40,20,20" BackgroundColor="White"
+               CornerRadius="20" HasShadow="True" 
+               VerticalOptions="FillAndExpand">
+            <StackLayout Margin="0" Padding="0" Spacing="10" VerticalOptions="FillAndExpand">
+
+                <Matrial:MaterialTextField LeadingIcon="user" Placeholder="{Localizer:Translate Email}" Text="{Binding UserName}"
+                                           FloatingPlaceholderColor="#456BFC" TintColor="#456BFC" LeadingIconTintColor="#456BFC"
+                                           CardBackgroundColor="#C1CDFE"/>
+                <Matrial:MaterialTextField LeadingIcon="lock" Placeholder="{Localizer:Translate Password}" Text="{Binding Password}"
+                                           FloatingPlaceholderColor="#456BFC" TintColor="#456BFC" LeadingIconTintColor="#456BFC"
+                                           CardBackgroundColor="#C1CDFE"/>
+
+                <StackLayout Margin="0,20,0,0" Padding="0" Spacing="20"
+                             Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Matrial:MaterialButton Text="{Localizer:Translate Forget Password?}"
+                                            BackgroundColor="Transparent" TextColor="#FF7F27" 
+                                            TextTransform="None" CharacterSpacing="1"
+                                            ButtonType="Elevated" HorizontalOptions="Start"
+                                            Command="{Binding ForgetPasswordCommand}" />
+                    <Matrial:MaterialButton Text="{Localizer:Translate Login}" 
+                                            BackgroundColor="#456BFC" TextColor="White"
+                                            TextTransform="None" CharacterSpacing="1" Elevation="12" HorizontalOptions="FillAndExpand" Margin="20,0"
+                                            ButtonType="Flat" CornerRadius="20"
+                                            VerticalOptions="Start" HeightRequest="50"
+                                            Command="{Binding LoginCommand}"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+
+</ContentPage>
