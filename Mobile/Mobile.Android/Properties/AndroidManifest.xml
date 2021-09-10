@@ -1,15 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.smartspace.gascom" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
-	<application android:label="Gascom" 
-               android:logo="@drawable/logo" android:theme="@style/MainTheme"
-							 android:fullBackupContent="@xml/appcenter_backup_rule"
-               android:usesCleartextTraffic="true" android:icon="@drawable/logo">
+	<uses-sdk android:minSdkVersion="26" android:targetSdkVersion="30" />
+	<application android:label="GASCOM" android:logo="@drawable/logo" android:theme="@style/MainTheme" android:fullBackupContent="@xml/appcenter_backup_rule" android:usesCleartextTraffic="true" android:icon="@drawable/logo">
 		<!-- Necessary for apps that target Android 9.0 or higher -->
 		<uses-library android:name="org.apache.http.legacy" android:required="false" />
 	</application>
+	<queries>
+		<intent>
+			<action android:name="android.intent.action.DIAL" />
+			<data android:scheme="tel" />
+		</intent>
+	</queries>
+	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+  <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+	<uses-feature android:name="android.hardware.location" android:required="false" />
+	<uses-feature android:name="android.hardware.location.gps" android:required="false" />
+	<uses-feature android:name="android.hardware.location.network" android:required="false" />
 </manifest>

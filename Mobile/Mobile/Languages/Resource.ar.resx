@@ -117,22 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Booked" xml:space="preserve">
+    <value>حجز</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>اتصال</value>
+  </data>
+  <data name="CanNotFoundPhoneNumber" xml:space="preserve">
+    <value>يبدو ان هذا الزبون لا يمتلك رقم هاتف للأسف</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>تم</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>البريد الإلكتروني</value>
+  </data>
+  <data name="ErrorOccured" xml:space="preserve">
+    <value>حدث خطاء</value>
   </data>
   <data name="Forget Password?" xml:space="preserve">
     <value>نسيت كلمة المرور؟</value>
   </data>
   <data name="Gascom Application" xml:space="preserve">
-    <value>Gascom تطبيق</value>
+    <value>Gascom Application</value>
+  </data>
+  <data name="Get Customers" xml:space="preserve">
+    <value>تحميل بيانات الزبائن</value>
+  </data>
+  <data name="Get Regions" xml:space="preserve">
+    <value>تحميل بيانات المناطق</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>تسجيل دخول</value>
   </data>
+  <data name="Map" xml:space="preserve">
+    <value>مشاهدة الموقع</value>
+  </data>
+  <data name="NoMapApplicationFound" xml:space="preserve">
+    <value>يبدو ان هاتفك لا يحتوي اي تطبيق لفتح الخريطة</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>كلمة المرور</value>
   </data>
+  <data name="PermissionRequest" xml:space="preserve">
+    <value>طلب الاذن</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>منطقة العمل</value>
+  </data>
+  <data name="Select Region" xml:space="preserve">
+    <value>تحديد المنطقة</value>
+  </data>
+  <data name="ThereIsNoAnyCustomerInYourRegion" xml:space="preserve">
+    <value>لا يوجد أي زبون في منطقتك</value>
+  </data>
+  <data name="Update Status Customer" xml:space="preserve">
+    <value>تحديث بيانات الزبائن</value>
+  </data>
+  <data name="WeightPercentage" xml:space="preserve">
+    <value>نسبة الوزن</value>
+  </data>
   <data name="Welcome Back" xml:space="preserve">
     <value>مرحبا مجدداّ</value>
+  </data>
+  <data name="WhyWeNeedThisPermission" xml:space="preserve">
+    <value>نحن بحاجة الى هذه السماحية، لكي نستطيع ايجاد اقرب طلب من موقعك الحالي</value>
   </data>
 </root>

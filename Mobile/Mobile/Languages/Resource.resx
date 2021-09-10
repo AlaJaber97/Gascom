@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Booked" xml:space="preserve">
+    <value>Booked</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>CALL</value>
+  </data>
+  <data name="CanNotFoundPhoneNumber" xml:space="preserve">
+    <value>This customer is not have phone number</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="ErrorOccured" xml:space="preserve">
+    <value>Error Occured</value>
   </data>
   <data name="Forget Password?" xml:space="preserve">
     <value>Forget Password?</value>
@@ -126,13 +141,46 @@
   <data name="Gascom Application" xml:space="preserve">
     <value>Gascom Application</value>
   </data>
+  <data name="Get Customers" xml:space="preserve">
+    <value>Get Customers</value>
+  </data>
+  <data name="Get Regions" xml:space="preserve">
+    <value>Get Regions</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Open Direction</value>
+  </data>
+  <data name="NoMapApplicationFound" xml:space="preserve">
+    <value>Your phone has not any map application</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="PermissionRequest" xml:space="preserve">
+    <value>Permission Request</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="Select Region" xml:space="preserve">
+    <value>Select Region</value>
+  </data>
+  <data name="ThereIsNoAnyCustomerInYourRegion" xml:space="preserve">
+    <value>There is no customer in your area</value>
+  </data>
+  <data name="Update Status Customer" xml:space="preserve">
+    <value>Update Status Customer</value>
+  </data>
+  <data name="WeightPercentage" xml:space="preserve">
+    <value>Weight Percentage</value>
+  </data>
   <data name="Welcome Back" xml:space="preserve">
     <value>Welcome Back</value>
+  </data>
+  <data name="WhyWeNeedThisPermission" xml:space="preserve">
+    <value>We need this permission, so that we can find the closest order from your current location</value>
   </data>
 </root>

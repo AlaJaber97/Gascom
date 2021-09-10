@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Distribute;
 using UIKit;
 
@@ -24,6 +27,7 @@ namespace Mobile.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            AppCenter.Start("76820194-552d-4bb6-8b7c-d3da7c025d98", typeof(Analytics), typeof(Crashes), typeof(Distribute));
             XF.Material.iOS.Material.Init();
             Distribute.DontCheckForUpdatesInDebug();
 

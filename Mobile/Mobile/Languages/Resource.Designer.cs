@@ -19,7 +19,7 @@ namespace Mobile.Languages {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resource {
@@ -61,11 +61,56 @@ namespace Mobile.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Booked.
+        /// </summary>
+        internal static string Booked {
+            get {
+                return ResourceManager.GetString("Booked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CALL.
+        /// </summary>
+        internal static string Call {
+            get {
+                return ResourceManager.GetString("Call", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This customer is not have phone number.
+        /// </summary>
+        internal static string CanNotFoundPhoneNumber {
+            get {
+                return ResourceManager.GetString("CanNotFoundPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        internal static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         internal static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Occured.
+        /// </summary>
+        internal static string ErrorOccured {
+            get {
+                return ResourceManager.GetString("ErrorOccured", resourceCulture);
             }
         }
         
@@ -88,11 +133,47 @@ namespace Mobile.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get Customers.
+        /// </summary>
+        internal static string Get_Customers {
+            get {
+                return ResourceManager.GetString("Get Customers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Regions.
+        /// </summary>
+        internal static string Get_Regions {
+            get {
+                return ResourceManager.GetString("Get Regions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         internal static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Direction.
+        /// </summary>
+        internal static string Map {
+            get {
+                return ResourceManager.GetString("Map", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your phone has not any map application.
+        /// </summary>
+        internal static string NoMapApplicationFound {
+            get {
+                return ResourceManager.GetString("NoMapApplicationFound", resourceCulture);
             }
         }
         
@@ -106,11 +187,74 @@ namespace Mobile.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permission Request.
+        /// </summary>
+        internal static string PermissionRequest {
+            get {
+                return ResourceManager.GetString("PermissionRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Region.
+        /// </summary>
+        internal static string Region {
+            get {
+                return ResourceManager.GetString("Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Region.
+        /// </summary>
+        internal static string Select_Region {
+            get {
+                return ResourceManager.GetString("Select Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no customer in your area.
+        /// </summary>
+        internal static string ThereIsNoAnyCustomerInYourRegion {
+            get {
+                return ResourceManager.GetString("ThereIsNoAnyCustomerInYourRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Status Customer.
+        /// </summary>
+        internal static string Update_Status_Customer {
+            get {
+                return ResourceManager.GetString("Update Status Customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight Percentage.
+        /// </summary>
+        internal static string WeightPercentage {
+            get {
+                return ResourceManager.GetString("WeightPercentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome Back.
         /// </summary>
         internal static string Welcome_Back {
             get {
                 return ResourceManager.GetString("Welcome Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We need this permission, so that we can find the closest order from your current location.
+        /// </summary>
+        internal static string WhyWeNeedThisPermission {
+            get {
+                return ResourceManager.GetString("WhyWeNeedThisPermission", resourceCulture);
             }
         }
     }

@@ -14,7 +14,10 @@ namespace Mobile.Utils
         private static LocalizationResourceManager _Instance { get; set; }
         public static LocalizationResourceManager Instance => _Instance ??= new LocalizationResourceManager();
         public FlowDirection FlowDirection { get; set; }
-        private LocalizationResourceManager() { }
+        private LocalizationResourceManager() 
+        {
+            SetCulture(new CultureInfo("ar-JO"));
+        }
 
         public void SetCulture(CultureInfo culture)
         {

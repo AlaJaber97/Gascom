@@ -6,7 +6,7 @@ namespace BLL.Settings
 {
     public static class Configration
     {
-        public static readonly BLL.Enums.DevServer Server = BLL.Enums.DevServer.Local;
+        public static readonly BLL.Enums.DevServer Server = BLL.Enums.DevServer.Publish;
         public static string ServerAddress
         {
             get
@@ -14,7 +14,7 @@ namespace BLL.Settings
                 return Server switch
                 {
                     Enums.DevServer.Local => "http://192.168.0.199:5000",
-                    Enums.DevServer.Publish => throw new NotImplementedException(),
+                    Enums.DevServer.Publish => "http://gascom.azurewebsites.net",
                     _ => throw new NotImplementedException(),
                 };
             }

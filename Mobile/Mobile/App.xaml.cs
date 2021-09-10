@@ -6,20 +6,57 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using localizer = Mobile.Utils.LocalizationResourceManager;
 using Microsoft.AppCenter.Distribute;
+using System.Threading.Tasks;
+using XF.Material.Forms.Resources;
+using Mobile.Interface;
+using Xamarin.Essentials;
 
 namespace Mobile
 {
     public partial class App : Application
     {
+        INotificationRegistrationService _notificationRegistrationService;
         public App()
         {
             InitializeComponent();
             XF.Material.Forms.Material.Init(this);
-            AppCenter.Start("ios={76820194-552d-4bb6-8b7c-d3da7c025d98};android={638407ed-3800-4080-acde-9835b1199dcc};", typeof(Analytics), typeof(Crashes), typeof(Distribute));
-            var page= new Views.LoginPage();
-            page.SetBinding(VisualElement.FlowDirectionProperty, new Binding(nameof(localizer.FlowDirection), source: localizer.Instance));
-            MainPage = new NavigationPage(page);
 
+            _notificationRegistrationService = Services.ServiceContainer.Resolve<Interface.INotificationRegistrationService>();
+            _notificationRegistrationService.RegisterDeviceAsync();
+
+            Services.ServiceContainer.Resolve<IPushNotificationActionService>().ActionTriggered += NotificationActionTriggered;
+            StartupPage().ConfigureAwait(true);
+        }
+
+        private async Task StartupPage()
+        {
+            Page page;
+            if (string.IsNullOrEmpty(await Utils.LocalStorage.GetTokenAsync()))
+            {
+                page = new Views.LoginPage();
+            }
+            else if(string.IsNullOrEmpty(await Utils.LocalStorage.GetLocalityAsync()))
+            {
+                page = new Views.LocalityPage();
+            }
+            else
+            {
+                page = new NavigationPage(new Views.MainPage());
+            }
+
+            page.SetBinding(VisualElement.FlowDirectionProperty, new Binding(nameof(localizer.FlowDirection), source: localizer.Instance));
+            MainPage = page;
+        }
+        void NotificationActionTriggered(object sender, BLL.Enums.PushNotificationAction action)
+        {
+            switch (action)
+            {
+                case BLL.Enums.PushNotificationAction.UpdateUser:
+                    MessagingCenter.Send(this, "UpdateStatusUser");
+                    break;
+                default:
+                    break;
+            }
         }
 
         protected override void OnStart()

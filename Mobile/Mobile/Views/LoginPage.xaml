@@ -4,6 +4,7 @@
              xmlns:Matrial="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              xmlns:Localizer="clr-namespace:Mobile.Utils"
              xmlns:ViewModels="clr-namespace:Mobile.ViewModels"
+             xmlns:Triggers="clr-namespace:Mobile.Triggers"
              NavigationPage.HasNavigationBar="False"
              x:Class="Mobile.Views.LoginPage">
     <ContentPage.BindingContext>
@@ -16,7 +17,7 @@
                 <Label Text="{Localizer:Translate Welcome Back}" TextColor="White" 
                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                        FontSize="Large" FontAttributes="Bold"/>
-                <Label Text="{Localizer:Translate Gasco Application}" TextColor="White" 
+                <Label Text="{Localizer:Translate Gascom Application}" TextColor="White" 
                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                        FontSize="Medium" FontAttributes="Bold"/>
             </StackLayout>
@@ -32,25 +33,39 @@
                VerticalOptions="FillAndExpand">
             <StackLayout Margin="0" Padding="0" Spacing="10" VerticalOptions="FillAndExpand">
 
-                <Matrial:MaterialTextField LeadingIcon="user" Placeholder="{Localizer:Translate Email}" Text="{Binding UserName}"
+                <Matrial:MaterialCard Margin="0" Padding="0"  HorizontalOptions="FillAndExpand" BackgroundColor="#C1CDFE" CornerRadius="10">
+                    <StackLayout Margin="0" Padding="0">
+                        <Matrial:MaterialTextField  Margin="0,0,20,0" LeadingIcon="user" Placeholder="{Localizer:Translate Email}" Text="{Binding UserName}"
                                            FloatingPlaceholderColor="#456BFC" TintColor="#456BFC" LeadingIconTintColor="#456BFC"
-                                           CardBackgroundColor="#C1CDFE"/>
-                <Matrial:MaterialTextField LeadingIcon="lock" Placeholder="{Localizer:Translate Password}" Text="{Binding Password}"
+                                           CardBackgroundColor="#C1CDFE" UnderlineColor="Transparent" InputType="Email"/>
+                    </StackLayout>
+                </Matrial:MaterialCard>
+                <Matrial:MaterialCard Margin="0" Padding="0"  HorizontalOptions="FillAndExpand" BackgroundColor="#C1CDFE" CornerRadius="10">
+                    <StackLayout Orientation="Horizontal" Margin="0" Padding="0" HorizontalOptions="FillAndExpand" BackgroundColor="#C1CDFE">
+                        <Matrial:MaterialTextField Margin="0,0,20,0" LeadingIcon="lock" HorizontalOptions="FillAndExpand" Placeholder="{Localizer:Translate Password}" Text="{Binding Password}"
                                            FloatingPlaceholderColor="#456BFC" TintColor="#456BFC" LeadingIconTintColor="#456BFC"
-                                           CardBackgroundColor="#C1CDFE"/>
-
-                <StackLayout Margin="0,20,0,0" Padding="0" Spacing="20"
-                             Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <Matrial:MaterialButton Text="{Localizer:Translate Forget Password?}"
+                                           CardBackgroundColor="#C1CDFE"  UnderlineColor="Transparent" InputType="{Binding Source={x:Reference ShowPasswordActualTrigger}, Path=InputType}"/>
+                        <ImageButton VerticalOptions="Center" Margin="20,0,0,0" HeightRequest="20" HorizontalOptions="End" Source="ic_eye_hide">
+                            <ImageButton.Triggers>
+                                <EventTrigger Event="Clicked">
+                                    <Triggers:ShowPasswordTriggerAction x:Name="ShowPasswordActualTrigger"/>
+                                </EventTrigger>
+                            </ImageButton.Triggers>
+                        </ImageButton>
+                    </StackLayout>
+                </Matrial:MaterialCard>
+                
+                <StackLayout Margin="0,20,0,0" Padding="0" Spacing="20" HorizontalOptions="FillAndExpand">
+                    <!--<Matrial:MaterialButton Text="{Localizer:Translate Forget Password?}"
                                             BackgroundColor="Transparent" TextColor="#FF7F27" 
                                             TextTransform="None" CharacterSpacing="1"
                                             ButtonType="Elevated" HorizontalOptions="Start"
-                                            Command="{Binding ForgetPasswordCommand}" />
+                                            Command="{Binding ForgetPasswordCommand}" />-->
                     <Matrial:MaterialButton Text="{Localizer:Translate Login}" 
                                             BackgroundColor="#456BFC" TextColor="White"
                                             TextTransform="None" CharacterSpacing="1" Elevation="12" HorizontalOptions="FillAndExpand" Margin="20,0"
-                                            ButtonType="Flat" CornerRadius="20"
-                                            VerticalOptions="Start" HeightRequest="50"
+                                            ButtonType="Flat" CornerRadius="5"
+                                            VerticalOptions="Start" HeightRequest="60"
                                             Command="{Binding LoginCommand}"/>
                 </StackLayout>
             </StackLayout>

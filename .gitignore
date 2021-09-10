@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Mobile/Mobile/Configration/NotificationConfigration.local_secrets.cs
+/API/appsettings.local_secrets.json
