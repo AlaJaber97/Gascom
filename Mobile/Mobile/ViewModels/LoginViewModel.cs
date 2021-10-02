@@ -53,7 +53,8 @@ namespace Mobile.ViewModels
             }
             catch(Exception ex)
             {
-
+                await DisplayToastAsync("حدث خطأ ما, يرجى تأكد من اتصالك بالانترنت ومحاولة لاحقاً");
+                Utils.Diagnostic.Log(ex, "Login Procdure");
             }
         }
 
@@ -77,10 +78,10 @@ namespace Mobile.ViewModels
             }
             catch(FirebaseAuthException ex)
             {
-                if(ex.ResponseData.Contains("EMAIL_NOT_FOUND"))
+                if (ex.ResponseData.Contains("EMAIL_NOT_FOUND"))
                     await DisplayToastAsync("يبدو ان هذه البريد الالكتروني غير موجود في قاعدة البيانات");
-                else
-                    await DisplayToastAsync(ex.Message);
+                else if (ex.ResponseData.Contains("INVALID_PASSWORD"))
+                    await DisplayToastAsync("يبدو ان كلمة المرور غير صحيحة");
                 return null;
             }
             catch (Exception ex)

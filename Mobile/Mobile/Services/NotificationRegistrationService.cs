@@ -60,33 +60,50 @@ namespace Mobile.Services
         public async Task RegisterDeviceAsync(params string[] tags)
         {
             var deviceInstallation = DeviceInstallationService?.GetDeviceInstallation(tags);
+            try
+            {
+                Utils.Diagnostic.LogEvent($"Start Register Device $InstallationId {{{deviceInstallation}}}", new Dictionary<string, string> { { "tags", string.Join(", ", tags) } });
 
-            await SendAsync(HttpMethod.Put, RequestUrl, deviceInstallation)
-                .ConfigureAwait(false);
+                await SendAsync(HttpMethod.Put, RequestUrl, deviceInstallation)
+                    .ConfigureAwait(false);
 
-            await SecureStorage.SetAsync(Mobile.Utils.LocalStorage.CachedDeviceTokenKey, deviceInstallation.PushChannel)
-                .ConfigureAwait(false);
+                await SecureStorage.SetAsync(Mobile.Utils.LocalStorage.CachedDeviceTokenKey, deviceInstallation.PushChannel)
+                    .ConfigureAwait(false);
 
-            await SecureStorage.SetAsync(Mobile.Utils.LocalStorage.CachedTagsKey, System.Text.Json.JsonSerializer.Serialize(tags));
+                await SecureStorage.SetAsync(Mobile.Utils.LocalStorage.CachedTagsKey, System.Text.Json.JsonSerializer.Serialize(tags));
+
+                Utils.Diagnostic.LogEvent($"Finish Register Device $InstallationId {{{deviceInstallation}}}", new Dictionary<string, string> { { "tags", string.Join(", ", tags) } });
+            }
+            catch (Exception ex)
+            {
+                Utils.Diagnostic.Log(ex, $"Try Register Device  $InstallationId {{{deviceInstallation}}} on tags: {string.Join(", ",tags)}");
+            }
         }
 
         public async Task RefreshRegistrationAsync()
         {
-            var cachedToken = await SecureStorage.GetAsync(Mobile.Utils.LocalStorage.CachedDeviceTokenKey)
+            try
+            {
+                var cachedToken = await SecureStorage.GetAsync(Mobile.Utils.LocalStorage.CachedDeviceTokenKey)
                 .ConfigureAwait(false);
 
-            var serializedTags = await SecureStorage.GetAsync(Mobile.Utils.LocalStorage.CachedTagsKey)
-                .ConfigureAwait(false);
+                var serializedTags = await SecureStorage.GetAsync(Mobile.Utils.LocalStorage.CachedTagsKey)
+                    .ConfigureAwait(false);
 
-            if (string.IsNullOrWhiteSpace(cachedToken) ||
-                string.IsNullOrWhiteSpace(serializedTags) ||
-                string.IsNullOrWhiteSpace(DeviceInstallationService.Token) ||
-                cachedToken == DeviceInstallationService.Token)
-                return;
+                if (string.IsNullOrWhiteSpace(cachedToken) ||
+                    string.IsNullOrWhiteSpace(serializedTags) ||
+                    string.IsNullOrWhiteSpace(DeviceInstallationService.Token) ||
+                    cachedToken == DeviceInstallationService.Token)
+                    return;
 
-            var tags = System.Text.Json.JsonSerializer.Deserialize<string[]>(serializedTags);
+                var tags = System.Text.Json.JsonSerializer.Deserialize<string[]>(serializedTags);
 
-            await RegisterDeviceAsync(tags);
+                await RegisterDeviceAsync(tags);
+            }
+            catch (Exception ex)
+            {
+                Utils.Diagnostic.Log(ex, $"Try Refresh Register Device Notification");
+            }
         }
 
         async Task SendAsync<T>(HttpMethod requestType, string requestUri, T obj)
@@ -101,14 +118,23 @@ namespace Mobile.Services
 
         async Task SendAsync(HttpMethod requestType,string requestUri,string jsonRequest = null)
         {
-            var request = new HttpRequestMessage(requestType, new Uri($"{_baseApiUrl}{requestUri}"));
+            var URL = $"{_baseApiUrl}{requestUri}";
+            var ResponseMessage = string.Empty;
+            try
+            {
+                var request = new HttpRequestMessage(requestType, new Uri(URL));
 
-            if (jsonRequest != null)
-                request.Content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+                if (jsonRequest != null)
+                    request.Content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 
-            var response = await _client.SendAsync(request).ConfigureAwait(false);
-
-            response.EnsureSuccessStatusCode();
+                var response = await _client.SendAsync(request).ConfigureAwait(false);
+                ResponseMessage = await response.Content.ReadAsStringAsync();
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                Utils.Diagnostic.Log(ex, $"Url: {URL}, response: {ResponseMessage}");
+            }
         }
     }
 }

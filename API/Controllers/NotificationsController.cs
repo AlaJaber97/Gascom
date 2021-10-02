@@ -1,5 +1,5 @@
 ﻿using BLL.Models.Notification;
-using BLL.Services;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,6 @@ namespace API.Controllers
         {
             _notificationService = notificationService;
         }
-
         [HttpPut]
         [Route("installations")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -29,13 +28,35 @@ namespace API.Controllers
         [ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
         public async Task<IActionResult> UpdateInstallation([Required] DeviceInstallation deviceInstallation)
         {
-            var success = await _notificationService
-                .CreateOrUpdateInstallationAsync(deviceInstallation, HttpContext.RequestAborted);
+            try
+            {
+                await _notificationService.CreateOrUpdateInstallationAsync(deviceInstallation, HttpContext.RequestAborted);
 
-            if (!success)
-                return new UnprocessableEntityResult();
+                return new OkResult();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
 
-            return new OkResult();
+        [HttpGet]
+        [Route("list/registration")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> GetAllRegistrations()
+        {
+            try
+            {
+                var result = await _notificationService
+                    .GetAllRegistrationsAsync();
+
+                return new OkObjectResult(result);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
         }
 
         [HttpDelete()]

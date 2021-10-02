@@ -1,5 +1,4 @@
 ﻿using BLL.Models.Notification;
-using BLL.Services;
 using Microsoft.Azure.NotificationHubs;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -34,13 +33,17 @@ namespace API.Services
         {
             return await _hub.CreateRegistrationIdAsync();
         }
+        public async Task<CollectionQueryResult<RegistrationDescription>> GetAllRegistrationsAsync()
+        {
+            return await _hub.GetAllRegistrationsAsync(100);
+        }
 
         public async Task<bool> CreateOrUpdateInstallationAsync(DeviceInstallation deviceInstallation, CancellationToken token)
         {
             if (string.IsNullOrWhiteSpace(deviceInstallation?.InstallationId) ||
                 string.IsNullOrWhiteSpace(deviceInstallation?.Platform) ||
                 string.IsNullOrWhiteSpace(deviceInstallation?.PushChannel))
-                return false;
+                throw new Exception("InstallationId, Platform, PushChannel may be is empty");
 
             var installation = new Installation()
             {
@@ -52,15 +55,15 @@ namespace API.Services
             if (_installationPlatform.TryGetValue(deviceInstallation.Platform, out var platform))
                 installation.Platform = platform;
             else
-                return false;
+                throw new Exception("Platform can not found it, may be is empty");
 
             try
             {
                 await _hub.CreateOrUpdateInstallationAsync(installation, token);
             }
-            catch
+            catch(Exception ex)
             {
-                return false;
+                throw ex;
             }
 
             return true;

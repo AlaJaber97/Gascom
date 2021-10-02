@@ -74,12 +74,15 @@ namespace BLL.Models
         [JsonProperty("Booked_At")]
         public string BookedAtStr { get; set; }
 
+        [JsonProperty("Booked_By")]
+        public string BookedBy { get; set; }
+
         [Newtonsoft.Json.JsonIgnore]
         public DateTime BookedAt;
         [Newtonsoft.Json.JsonIgnore]
-        public bool IsBooked => DateTime.TryParse(BookedAtStr, out BookedAt);
+        public bool IsBooked => !string.IsNullOrWhiteSpace(BookedBy);
+        [Newtonsoft.Json.JsonIgnore]
+        public bool CanBooked => !IsBooked && OrderState == 1;
 
-        [JsonProperty("Booked_By")]
-        public string BookedBy { get; set; }
     }
 }

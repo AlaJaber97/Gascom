@@ -16,7 +16,7 @@ namespace Mobile.Utils
                 => new PushNotificationActionService());
 
             ServiceContainer.Register<INotificationRegistrationService>(()
-                => new NotificationRegistrationService($"{BLL.Settings.Configration.ServerAddress}/"));
+                => new NotificationRegistrationService($"{BLL.Settings.Configration.ApiServerAddress}/"));
         }
     }
 }

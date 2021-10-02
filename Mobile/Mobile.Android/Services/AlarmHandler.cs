@@ -4,10 +4,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using AndroidX.Core.App;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 
 namespace Mobile.Droid.Services
 {
@@ -18,11 +20,28 @@ namespace Mobile.Droid.Services
         {
             if (intent?.Extras != null)
             {
+                PowerManager.WakeLock sWakeLock;
+                var pm = PowerManager.FromContext(context);
+                sWakeLock = pm.NewWakeLock(WakeLockFlags.Partial, "GCM Broadcast Reciever Tag");
+                sWakeLock.Acquire();
+
                 string title = intent.GetStringExtra(AndroidNotificationManager.TitleKey);
                 string message = intent.GetStringExtra(AndroidNotificationManager.MessageKey);
 
-                AndroidNotificationManager manager = AndroidNotificationManager.Instance ?? new AndroidNotificationManager();
-                manager.Show(title, message);
+                // Instantiate the builder and set notification elements:
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.Instance, "gascom_notification_channel")
+                    .SetContentTitle(title)
+                    .SetContentText(message)
+                    .SetSmallIcon(Resource.Drawable.logo);
+
+                // Build the notification:
+                Notification notification = builder.Build();
+
+                // Get the notification manager:
+                var notificationManager = NotificationManagerCompat.From(MainActivity.Instance);
+                // Publish the notification:
+                const int notificationId = 0;
+                notificationManager.Notify(notificationId, notification);
             }
         }
     }

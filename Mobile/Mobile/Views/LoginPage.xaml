@@ -42,9 +42,11 @@
                 </Matrial:MaterialCard>
                 <Matrial:MaterialCard Margin="0" Padding="0"  HorizontalOptions="FillAndExpand" BackgroundColor="#C1CDFE" CornerRadius="10">
                     <StackLayout Orientation="Horizontal" Margin="0" Padding="0" HorizontalOptions="FillAndExpand" BackgroundColor="#C1CDFE">
-                        <Matrial:MaterialTextField Margin="0,0,20,0" LeadingIcon="lock" HorizontalOptions="FillAndExpand" Placeholder="{Localizer:Translate Password}" Text="{Binding Password}"
-                                           FloatingPlaceholderColor="#456BFC" TintColor="#456BFC" LeadingIconTintColor="#456BFC"
-                                           CardBackgroundColor="#C1CDFE"  UnderlineColor="Transparent" InputType="{Binding Source={x:Reference ShowPasswordActualTrigger}, Path=InputType}"/>
+                        <Matrial:MaterialTextField Margin="0,0,20,0" LeadingIcon="lock" HorizontalOptions="FillAndExpand" 
+                                                   Placeholder="{Localizer:Translate Password}" Text="{Binding Password}"
+                                                   FloatingPlaceholderColor="#456BFC" TintColor="#456BFC" LeadingIconTintColor="#456BFC"
+                                                   CardBackgroundColor="#C1CDFE"  UnderlineColor="Transparent" 
+                                                   InputType="{Binding Source={x:Reference ShowPasswordActualTrigger}, Path=InputType}"/>
                         <ImageButton VerticalOptions="Center" Margin="20,0,0,0" HeightRequest="20" HorizontalOptions="End" Source="ic_eye_hide">
                             <ImageButton.Triggers>
                                 <EventTrigger Event="Clicked">

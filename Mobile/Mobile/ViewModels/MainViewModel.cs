@@ -11,11 +11,17 @@ using localizer = Mobile.Utils.LocalizationResourceManager;
 using System.Threading;
 using Firebase.Database.Query;
 using Newtonsoft.Json;
+using Mobile.Interface;
+using Microsoft.AspNetCore.SignalR.Client;
+using System.Diagnostics;
+using BLL.Extensions;
 
 namespace Mobile.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+        public HubConnection _hubConnection;
+        public string UserName { get; set; }
         private bool _isLoadingData;
         public bool IsLoadingData
         {
@@ -33,11 +39,76 @@ namespace Mobile.ViewModels
         public MainViewModel()
         {
             LoadCustomer().ConfigureAwait(false);
+            InitHub().ConfigureAwait(false);
             MessagingCenter.Subscribe<App>(this, "UpdateStatusUser", async (sender) =>
             {
                 await LoadCustomer().ConfigureAwait(false);
             });
+
+            
         }
+        private async Task InitHub()
+        {
+            UserName = await Utils.LocalStorage.GetUserNameAsync();
+
+            _hubConnection = new HubConnectionBuilder()
+                .WithUrl(BLL.Settings.Configration.HubServerAddress, options => options.Headers.Add("UserName", UserName))
+                .WithAutomaticReconnect().Build();
+
+            _hubConnection.Closed += async (error) =>
+            {
+                await Task.Delay(new Random().Next(0, 5) * 1000);
+                await _hubConnection.StartAsync();
+            };
+
+            await Connect().ConfigureAwait(false);
+        }
+        private async Task Connect()
+        {
+            if (_hubConnection.State == HubConnectionState.Connected) return;
+
+            _hubConnection.On("UpdateStatusUser", async () => await LoadCustomer().ConfigureAwait(false));
+
+            try
+            {
+                await _hubConnection.StartAsync();
+            }
+            catch (Exception ex)
+            {
+                Utils.Diagnostic.Log(ex, "Try Connect with gascom-signalR");
+            }
+        }
+        private async Task Disconnect()
+        {
+            await _hubConnection.DisposeAsync();
+
+            _hubConnection = new HubConnectionBuilder()
+                .WithUrl(BLL.Settings.Configration.HubServerAddress, options => options.Headers.Add("UserName", UserName))
+                .Build();
+
+            await Connect();
+        }
+        public static async Task RegisterationDevices()
+        {
+            try
+            {
+                var EmailUser = await Utils.LocalStorage.GetUserNameAsync();
+                var Locality = await Utils.LocalStorage.GetLocalityAsync();
+
+                var tags = new List<string>();
+                tags.Add("gascom".Validation());
+                if (!string.IsNullOrEmpty(EmailUser)) tags.Add(EmailUser.Validation());
+                if (!string.IsNullOrEmpty(Locality)) tags.Add(Locality.Validation());
+
+                var _notificationRegistrationService = Services.ServiceContainer.Resolve<INotificationRegistrationService>();
+                await _notificationRegistrationService.RegisterDeviceAsync(tags.ToArray());
+            }
+            catch (Exception ex)
+            {
+                Utils.Diagnostic.Log(ex);
+            }
+        }
+
         private Command loadCustomerCommand;
         public ICommand LoadCustomerCommand => loadCustomerCommand ??= new Command(() => LoadCustomer().ConfigureAwait(false));
 
@@ -60,7 +131,7 @@ namespace Mobile.ViewModels
                         {
                             var CurrentLocation = await GetCurrentLocation();
                             if (CurrentLocation != null)
-                                ListOfCustomer = ListOfCustomer.ThenBy(item => Location.CalculateDistance(CurrentLocation.Latitude, CurrentLocation.Longitude, item.Latitude, item.Longtitude, DistanceUnits.Kilometers));
+                                ListOfCustomer = ListOfCustomer.ThenBy(item => GetDistance(CurrentLocation, item.Latitude, item.Longtitude));
                         }
 
                         Customers = new ObservableCollection<BLL.Models.Customer>(ListOfCustomer);
@@ -73,15 +144,28 @@ namespace Mobile.ViewModels
                 Utils.Diagnostic.Log(ex);
             }
         }
+        private double GetDistance(Location CurrentLocation, double Latitude, double Longtitude)
+        {
+            try
+            {
+                var result = Location.CalculateDistance(CurrentLocation.Latitude, CurrentLocation.Longitude, Latitude, Longtitude, DistanceUnits.Kilometers);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Utils.Diagnostic.Log(ex);
+                return 10 ^ 4;
+            }
+        }
 
         private Command bookedCommand;
-        public ICommand BookedCommand => bookedCommand ??= new Command<BLL.Models.Customer>(async(customer) => await BookedOrder(customer).ConfigureAwait(false));
+        public ICommand BookedCommand => bookedCommand ??= new Command<BLL.Models.Customer>(async (customer) => await BookedOrder(customer).ConfigureAwait(false));
 
         private async Task BookedOrder(BLL.Models.Customer customer)
         {
             try
             {
-                customer.BookedAtStr = DateTime.Now.ToString();
+                customer.BookedAtStr = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
                 customer.BookedBy = await Utils.LocalStorage.GetUserNameAsync(); ;
                 await Utils.FirebaseDatabase.Instance.Client.Child($"Customers/{customer.ID}").PutAsync(JsonConvert.SerializeObject(customer));
                 await LoadCustomer().ConfigureAwait(false);
@@ -93,7 +177,7 @@ namespace Mobile.ViewModels
         }
 
         private Command dialupCommand;
-        public ICommand DialUpCommand => dialupCommand ??= new Command<BLL.Models.Customer>(async(customer) => await DialUp(customer).ConfigureAwait(false));
+        public ICommand DialUpCommand => dialupCommand ??= new Command<BLL.Models.Customer>(async (customer) => await DialUp(customer).ConfigureAwait(false));
 
         private async Task DialUp(BLL.Models.Customer customer)
         {
@@ -199,6 +283,7 @@ namespace Mobile.ViewModels
         ~MainViewModel()
         {
             MessagingCenter.Unsubscribe<App>(this, "UpdateStatusUser");
+            Disconnect().ConfigureAwait(false);
         }
     }
 }

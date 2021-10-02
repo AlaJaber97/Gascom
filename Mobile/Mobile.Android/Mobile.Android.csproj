@@ -84,6 +84,9 @@
     <PackageReference Include="Xamarin.AndroidX.RecyclerView">
       <Version>1.2.1.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.AndroidX.SwipeRefreshLayout">
+      <Version>1.1.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Iid">
       <Version>121.1.0</Version>
     </PackageReference>

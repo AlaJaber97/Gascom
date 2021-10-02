@@ -44,7 +44,7 @@
                                                           VerticalOptions="Start" HorizontalOptions="Start">
                                                 <Image Source="man" Aspect="AspectFit"/>
                                             </Matrial:MaterialCard>
-                                            <StackLayout Margin="0" Padding="0" Spacing="10" VerticalOptions="CenterAndExpand">
+                                            <StackLayout Margin="0" Padding="0" Spacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                                                 <Matrial:MaterialLabel Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium"  VerticalOptions="Center"/>
                                                 <Matrial:MaterialLabel FontAttributes="Bold" FontSize="Small" VerticalOptions="Center">
                                                     <Matrial:MaterialLabel.FormattedText>
@@ -64,28 +64,22 @@
                                                                 ContentLayout="Right,10"
                                                                 Command="{Binding Source={x:RelativeSource AncestorType={x:Type ViewModels:MainViewModel}}, Path=DialUpCommand}"
                                                                 CommandParameter="{Binding .}"
-                                                                HorizontalOptions="FillAndExpand" ButtonType="Outlined"/>
+                                                                HorizontalOptions="FillAndExpand" ButtonType="Outlined"
+                                                                IsVisible="{Binding IsBooked}"/>
                                             <Matrial:MaterialButton ImageSource="hotel_bell_16x16" Text="{Localizer:Translate Booked}"
                                                                 ContentLayout="Right,10"
                                                                 Command="{Binding Source={x:RelativeSource AncestorType={x:Type ViewModels:MainViewModel}}, Path=BookedCommand}"
                                                                 CommandParameter="{Binding .}"
                                                                 HorizontalOptions="FillAndExpand" ButtonType="Outlined"
-                                                                IsVisible="{Binding IsBooked,Converter={StaticResource InvertedBoolConverter}}"/>
+                                                                IsVisible="{Binding CanBooked}"/>
                                             <Matrial:MaterialButton ImageSource="directions_16x16" Text="{Localizer:Translate Map}" 
                                                                 ContentLayout="Right,10"
                                                                 Command="{Binding Source={x:RelativeSource AncestorType={x:Type ViewModels:MainViewModel}}, Path=LunchMapCommand}"
                                                                 CommandParameter="{Binding .}"
-                                                                HorizontalOptions="FillAndExpand" ButtonType="Outlined"/>
+                                                                HorizontalOptions="FillAndExpand" ButtonType="Outlined"
+                                                                IsVisible="{Binding IsBooked}"/>
                                         </StackLayout>
                                     </StackLayout>
-                                    <!--<BoxView Color="Red" HeightRequest="10" VerticalOptions="Start" HorizontalOptions="Fill"
-                                             Grid.Row="1" Grid.Column="1" Rotation="-45" TranslationY="10" Scale="2" IsVisible="False">
-                                        <BoxView.Triggers>
-                                            <DataTrigger TargetType="BoxView" Binding="{Binding OrderState}" Value="1">
-                                                <Setter Property="IsVisible" Value="True"/>
-                                            </DataTrigger>
-                                        </BoxView.Triggers>
-                                    </BoxView>-->
                                 </Grid>
                                 <Matrial:MaterialCard.Triggers>
                                     <DataTrigger TargetType="Matrial:MaterialCard" Binding="{Binding IsBooked}" Value="True">

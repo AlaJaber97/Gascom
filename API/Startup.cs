@@ -1,5 +1,4 @@
 using API.Services;
-using BLL.Services;
 using Hangfire;
 using Hangfire.MemoryStorage;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
+using Microsoft.AspNetCore.SignalR;
 
 namespace API
 {
@@ -45,9 +45,10 @@ namespace API
             // Add the processing server as IHostedService
             services.AddHangfireServer();
 
-            services.AddSingleton<BLL.Services.INotificationService, API.Services.NotificationHubService>();
+            services.AddSignalR();
 
             services.AddSingleton<INotificationService, NotificationHubService>();
+
             services.AddOptions<BLL.Models.Notification.NotificationHubOptions>()
                 .Configure(Configuration.GetSection("NotificationHub").Bind)
                 .ValidateDataAnnotations();
@@ -61,7 +62,10 @@ namespace API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRecurringJobManager backgroundJobs, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
+            IBackgroundJobClient backgroundJobs, 
+            IRecurringJobManager recurringJobs,
+            ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -76,16 +80,17 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseFileServer();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRService>("/gascom-signalr");
             });
 
             app.UseHangfireDashboard();
-
             var interval = BLL.Hangfire.Cron.MinuteInterval(5);
-            backgroundJobs.AddOrUpdate("CheckClientOrders", () => FirebaseService.CheckUserStatus(), interval);
+            recurringJobs.AddOrUpdate<SignalRService>("Cancel Reserved Customer", x => x.CheckUserStatus(), interval);
+
         }
     }
 }

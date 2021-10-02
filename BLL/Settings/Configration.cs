@@ -6,18 +6,19 @@ namespace BLL.Settings
 {
     public static class Configration
     {
-        public static readonly BLL.Enums.DevServer Server = BLL.Enums.DevServer.Publish;
-        public static string ServerAddress
+        public static readonly BLL.Enums.DevServer Server = BLL.Enums.DevServer.Local;
+        public static string ApiServerAddress
         {
             get
             {
                 return Server switch
                 {
-                    Enums.DevServer.Local => "http://192.168.0.199:5000",
-                    Enums.DevServer.Publish => "http://gascom.azurewebsites.net",
+                    Enums.DevServer.Local => "http://192.168.0.103:5000",
+                    Enums.DevServer.Publish => "https://gascom.azurewebsites.net",
                     _ => throw new NotImplementedException(),
                 };
             }
         }
+        public static string HubServerAddress => $"{ApiServerAddress}/gascom-signalr";
     }
 }

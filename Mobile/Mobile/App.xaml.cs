@@ -15,14 +15,10 @@ namespace Mobile
 {
     public partial class App : Application
     {
-        INotificationRegistrationService _notificationRegistrationService;
         public App()
         {
             InitializeComponent();
             XF.Material.Forms.Material.Init(this);
-
-            _notificationRegistrationService = Services.ServiceContainer.Resolve<Interface.INotificationRegistrationService>();
-            _notificationRegistrationService.RegisterDeviceAsync();
 
             Services.ServiceContainer.Resolve<IPushNotificationActionService>().ActionTriggered += NotificationActionTriggered;
             StartupPage().ConfigureAwait(true);

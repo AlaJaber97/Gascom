@@ -12,6 +12,7 @@ namespace Mobile.Utils
         private static string Username => "Username";
         public const string CachedDeviceTokenKey = "cached_device_token";
         public const string CachedTagsKey = "cached_tags";
+
         public static async Task<string> GetTokenAsync()
         {
             return await Xamarin.Essentials.SecureStorage.GetAsync(FirebaseToken);

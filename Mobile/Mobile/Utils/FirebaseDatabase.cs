@@ -42,7 +42,7 @@ namespace Mobile.Utils
                 var Username = await Utils.LocalStorage.GetUserNameAsync();
                 var AllCustomers = await GetAllCustomersAsync();
                 var CustomersInRegion = AllCustomers
-                                        .Where(item=>item.OrderState == 1)
+                                        //.Where(item=>item.OrderState == 1)
                                         .Where(item=> !item.IsBooked || (item.BookedBy == Username))
                                         .Where(item => item.Precinct.ToLower() == Region.ToLower());
                 return CustomersInRegion;

@@ -32,7 +32,7 @@ namespace Mobile.Droid.Services
                 throw new Exception(GetPlayServicesError());
 
             if (string.IsNullOrWhiteSpace(Token))
-                throw new Exception("Unable to resolve token for FCM");
+                throw new Exception("Unable to resolve token for FCM, token is empty");
 
             var installation = new DeviceInstallation
             {

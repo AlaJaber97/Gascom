@@ -11,7 +11,7 @@ namespace BLL.Utils
     public static class JwtConfig
     {
         public static string JwtKey => "SOME_RANDOM_KEY_DO_NOT_SHARE";
-        public static string JwtIssuer => BLL.Settings.Configration.ServerAddress;
+        public static string JwtIssuer => BLL.Settings.Configration.ApiServerAddress;
         public static int JwtExpireDays => 30;
     }
     public static class Jwt
