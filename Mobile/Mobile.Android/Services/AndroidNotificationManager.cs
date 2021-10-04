@@ -89,7 +89,7 @@ namespace Mobile.Droid.Services
                 .SetContentTitle(title)
                 .SetContentText(message)
                 .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.logo))
-                .SetSmallIcon(Resource.Drawable.logo)
+                .SetSmallIcon(Resource.Drawable.ic_notify_logo)
                 .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate);
 
             Notification notification = builder.Build();

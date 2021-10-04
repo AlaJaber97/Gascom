@@ -52,7 +52,7 @@ namespace Mobile.ViewModels
             UserName = await Utils.LocalStorage.GetUserNameAsync();
 
             _hubConnection = new HubConnectionBuilder()
-                .WithUrl(BLL.Settings.Configration.HubServerAddress, options => options.Headers.Add("UserName", UserName))
+                .WithUrl($"{BLL.Settings.Configration.HubServerAddress}?UserName={UserName}")
                 .WithAutomaticReconnect().Build();
 
             _hubConnection.Closed += async (error) =>
@@ -83,7 +83,7 @@ namespace Mobile.ViewModels
             await _hubConnection.DisposeAsync();
 
             _hubConnection = new HubConnectionBuilder()
-                .WithUrl(BLL.Settings.Configration.HubServerAddress, options => options.Headers.Add("UserName", UserName))
+                .WithUrl($"{BLL.Settings.Configration.HubServerAddress}?UserName={UserName}")
                 .Build();
 
             await Connect();

@@ -6,7 +6,7 @@ namespace BLL.Settings
 {
     public static class Configration
     {
-        public static readonly BLL.Enums.DevServer Server = BLL.Enums.DevServer.Publish;
+        public static readonly BLL.Enums.DevServer Server = BLL.Enums.DevServer.Local;
         public static string ApiServerAddress
         {
             get

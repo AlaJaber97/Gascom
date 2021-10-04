@@ -15,6 +15,9 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
 using Microsoft.AspNetCore.SignalR;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace API
 {
@@ -46,6 +49,7 @@ namespace API
             services.AddHangfireServer();
 
             services.AddSignalR();
+            services.AddScoped<SignalRService>();
 
             services.AddSingleton<INotificationService, NotificationHubService>();
 
@@ -89,8 +93,7 @@ namespace API
 
             app.UseHangfireDashboard();
             var interval = BLL.Hangfire.Cron.MinuteInterval(5);
-            recurringJobs.AddOrUpdate<SignalRService>("Cancel Reserved Customer", x => x.CheckUserStatus(), interval);
-
+            recurringJobs.AddOrUpdate<Controllers.UsersController>("Cancel Reserved Customer", (x) => x.CheckUserStatus(), interval);
         }
     }
 }
