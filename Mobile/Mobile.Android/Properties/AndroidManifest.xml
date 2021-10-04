@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0.4.1" package="com.smartspace.gascom" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.1.0" package="com.smartspace.gascom" android:installLocation="auto" android:versionCode="1">
 	<uses-sdk android:minSdkVersion="26" android:targetSdkVersion="30" />
 	<application android:label="GASCOM" android:logo="@drawable/logo" android:theme="@style/MainTheme" android:fullBackupContent="@xml/appcenter_backup_rule" android:usesCleartextTraffic="true" android:icon="@drawable/logo">
 		<!-- Necessary for apps that target Android 9.0 or higher -->
 		<uses-library android:name="org.apache.http.legacy" android:required="false" />
-	</application>
+    <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_notify_logo" />
+
+  </application>
 	<queries>
 		<intent>
 			<action android:name="android.intent.action.DIAL" />

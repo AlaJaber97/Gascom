@@ -124,7 +124,7 @@ namespace Mobile.ViewModels
                     var _Customers = await Utils.FirebaseDatabase.Instance.GetCustomersAsync(RegionOperation);
                     if (_Customers != null)
                     {
-                        var ListOfCustomer = _Customers.OrderBy(item => item.OrderState);
+                        var ListOfCustomer = _Customers.OrderByDescending(item => item.OrderState);
 
                         var permission = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
                         if (permission == PermissionStatus.Granted)

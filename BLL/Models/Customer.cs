@@ -78,7 +78,8 @@ namespace BLL.Models
         public string BookedBy { get; set; }
 
         [Newtonsoft.Json.JsonIgnore]
-        public DateTime BookedAt;
+        public DateTime BookedAt=> DateTime.TryParse(BookedAtStr, out DateTime value) ? value : default;
+
         [Newtonsoft.Json.JsonIgnore]
         public bool IsBooked => !string.IsNullOrWhiteSpace(BookedBy);
         [Newtonsoft.Json.JsonIgnore]
