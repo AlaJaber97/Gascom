@@ -7,11 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobile.Android", "Mobile\Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobile.iOS", "Mobile\Mobile.iOS\Mobile.iOS.csproj", "{6481F05C-2D1D-4141-8079-E694AAAE05F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobile", "Mobile\Mobile\Mobile.csproj", "{EB1EA96F-7A74-4318-AD66-B96B232F1FBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mobile", "Mobile\Mobile\Mobile.csproj", "{EB1EA96F-7A74-4318-AD66-B96B232F1FBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{35A4D979-22CC-4C32-8F03-1C9BBA099472}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{35A4D979-22CC-4C32-8F03-1C9BBA099472}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{B64A624F-27D2-40EF-B8DD-22881DD63174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{B64A624F-27D2-40EF-B8DD-22881DD63174}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APK", "APK", "{6CCF1E27-6E8F-4134-8ACC-3FA1BDF01F59}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\Desktop\com.smartspace.gascom.apk = ..\..\..\..\Desktop\com.smartspace.gascom.apk
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
