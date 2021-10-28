@@ -136,6 +136,7 @@ namespace Mobile.ViewModels
 
                         Customers = new ObservableCollection<BLL.Models.Customer>(ListOfCustomer);
                     }
+                    await Connect().ConfigureAwait(false);
                     IsLoadingData = false;
                 }
             }
